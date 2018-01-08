@@ -96,9 +96,9 @@ class PardotToS3Operator(BaseOperator):
         ids = ''
 
         for prospect in prospects:
-            if ids is not '': 
+            if ids is not '':
                 ids += ','
-            ids += str(prospect.get('id'))    
+            ids += str(prospect.get('id'))
         results = hook.run_query(self.pardot_obj, self.results_field,
                                  self.replication_key_value, method_to_call='query_by_prospect_ids', prospect_ids=ids)
         return results
@@ -123,19 +123,19 @@ class PardotToS3Operator(BaseOperator):
             "Making request for"
             " {0} object".format(self.pardot_obj)
         )
-    
+
         # fetch the results from pardot and filter them
         if self.pardot_obj is 'visits':
-            # visits can be queried only by prospect or visit id 
+            # visits can be queried only by prospect or visit id
             # so we first query all prospects and pass the ids to
             # the hook
             results = self.get_visits(hook, self.replication_key_value)
-        else: 
+        else:
             results = hook.run_query(
-                    self.pardot_obj, 
-                    self.results_field,
-                    self.replication_key_value, 
-                    **self.pardot_args)
+                self.pardot_obj,
+                self.results_field,
+                self.replication_key_value,
+                **self.pardot_args)
         filterd_results = self.filter_fields(results)
 
         # write the results to a temporary file and save that file to s3
@@ -145,15 +145,15 @@ class PardotToS3Operator(BaseOperator):
 
             tmp.flush()
 
-            # dest_s3 = S3Hook(s3_conn_id=self.s3_conn_id)
-            # dest_s3.load_file(
-            #     filename=tmp.name,
-            #     key=self.s3_key,
-            #     bucket_name=self.s3_bucket,
-            #     replace=True
+            dest_s3 = S3Hook(s3_conn_id=self.s3_conn_id)
+            dest_s3.load_file(
+                filename=tmp.name,
+                key=self.s3_key,
+                bucket_name=self.s3_bucket,
+                replace=True
 
-            # )
-            # dest_s3.connection.close()
-            # tmp.close()
+            )
+            dest_s3.connection.close()
+            tmp.close()
 
     logging.info("Query finished!")
