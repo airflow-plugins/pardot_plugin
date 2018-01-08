@@ -27,10 +27,9 @@ class PardotHook(BaseHook):
 
         self.connection = self.get_connection(self.conn_id)
         self.extras = self.connection.extra_dejson
-        pardot = PardotAPI(
-            email=self.extras['username'],
-            password=self.extras['password'],
-            user_key=self.extras['user_key'])
+        pardot = PardotAPI(email=self.extras['username'],
+                           password=self.extras['password'],
+                           user_key=self.extras['user_key'])
 
         pardot.authenticate()
         self.pardot = pardot

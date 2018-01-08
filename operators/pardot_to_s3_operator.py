@@ -99,8 +99,11 @@ class PardotToS3Operator(BaseOperator):
             if ids is not '':
                 ids += ','
             ids += str(prospect.get('id'))
-        results = hook.run_query(self.pardot_obj, self.results_field,
-                                 self.replication_key_value, method_to_call='query_by_prospect_ids', prospect_ids=ids)
+        results = hook.run_query(self.pardot_obj,
+                                 self.results_field,
+                                 self.replication_key_value,
+                                 method_to_call='query_by_prospect_ids',
+                                 prospect_ids=ids)
         return results
 
     def execute(self, context):
@@ -131,11 +134,10 @@ class PardotToS3Operator(BaseOperator):
             # the hook
             results = self.get_visits(hook, self.replication_key_value)
         else:
-            results = hook.run_query(
-                self.pardot_obj,
-                self.results_field,
-                self.replication_key_value,
-                **self.pardot_args)
+            results = hook.run_query(self.pardot_obj,
+                                     self.results_field,
+                                     self.replication_key_value,
+                                     **self.pardot_args)
         filterd_results = self.filter_fields(results)
 
         # write the results to a temporary file and save that file to s3
