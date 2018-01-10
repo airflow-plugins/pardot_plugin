@@ -1,7 +1,6 @@
 from airflow.hooks.base_hook import BaseHook
 from pypardot.client import PardotAPI
 import json
-# TODO: inherit from base hook
 
 
 class PardotHook(BaseHook):
@@ -46,15 +45,14 @@ class PardotHook(BaseHook):
         """
         pardot = self.get_conn()
         pardot_model = getattr(pardot, model)
-        print ('Initial result: ')
 
         result = getattr(pardot_model, method_to_call)(
             id_greater_than=replication_key_value, **kwargs)
 
         offset = 0
         total_results = result[results_field]
-        print(result)
-        while len(total_results) < result['total_results'] and len(total_results) < 200:
+
+        while len(total_results) < result['total_results']:
             offset += len(result[results_field])
             result = getattr(pardot_model, method_to_call)(
                 id_greater_than=replication_key_value, offset=offset, **kwargs)
