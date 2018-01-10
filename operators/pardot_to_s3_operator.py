@@ -101,7 +101,7 @@ class PardotToS3Operator(BaseOperator):
             ids += str(prospect.get('id'))
         results = hook.run_query(self.pardot_obj,
                                  self.results_field,
-                                 self.replication_key_value,
+                                 replication_key_value,
                                  method_to_call='query_by_prospect_ids',
                                  prospect_ids=ids)
         return results
@@ -138,12 +138,12 @@ class PardotToS3Operator(BaseOperator):
                                      self.results_field,
                                      self.replication_key_value,
                                      **self.pardot_args)
-        filterd_results = self.filter_fields(results)
 
         # write the results to a temporary file and save that file to s3
         with NamedTemporaryFile("w") as tmp:
-            for result in filterd_results:
-                tmp.write(json.dumps(result) + '\n')
+            for result in results:
+                filtered_result = self.filter_fields(result)
+                tmp.write(json.dumps(filtered_result) + '\n')
 
             tmp.flush()
 
