@@ -23,4 +23,3 @@ njson format. The parameters it can accept include the following.
 - `s3_key`: The input s3 key.  
 - `fields`: *optional* list of fields that you want to get from the object. If *None*, then this will get all fields for the object
 - `replication_key_value`: *(optional)*  value of the replication key, if needed. The operator will import only results with the id grater than the value of this param.
-- `**kwargs`:  replication key and value, if replication_key parameter is given and extra params for pardot method if needed.
