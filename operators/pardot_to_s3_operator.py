@@ -141,7 +141,7 @@ class PardotToS3Operator(BaseOperator, SkipMixin):
 
         # write the results to a temporary file and save that file to s3
         if len(results) == 0 or results is None:
-            logging.info("No records pulled from Trello.")
+            logging.info("No records pulled from Pardot.")
             downstream_tasks = context['task'].get_flat_relatives(
                 upstream=False)
             logging.info('Skipping downstream tasks...')
