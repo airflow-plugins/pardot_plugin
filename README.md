@@ -16,11 +16,16 @@ njson format. The parameters it can accept include the following.
 
 - `pardot_conn_id`: The pardot connection id from Airflow
 - `pardot_obj`: Pardot object to query
-- `results_field`: name of the results array from response, acording to pypardot4 documentation
-- `pardot_args`: *optional* dictionary with any extra arguments accepted by pypardot4, 
+- `pardot_args`: *optional* dictionary with any extra arguments accepted by pypardot4,
+- `pardot_time_offset`: *optional* The timezone offset from UTC that the Pardot account is associated with. For example, if the Pardot account has timestamps in the Eastern US timezone, this value would be "-5" (i.e. 5 hours before UTC). By default, this value is set to Eastern US time.
 - `s3_conn_id`: S3 connection id from Airflow.  
 - `s3_bucket`: The output s3 bucket.  
 - `s3_key`: The input s3 key.  
 - `fields`: *optional* list of fields that you want to get from the object. If *None*, then this will get all fields for the object
-- `replication_key_value`: *(optional)*  value of the replication key, if needed. The operator will import only results with the id grater than the value of this param.
+- `replication_type`:  *(optional)*  Theh type of incremental queries being issued to Pardot API. Possible values for this parameter include `time` and `key`.
+- `replication_field`: *(optional)*  The field for the replication key, only required if `replication_type` is set to `time`. This parameter can be one of the following values:
+  - `updated_at`
+  - `created_at`
+
+
 - `**kwargs`:  replication key and value, if replication_key parameter is given and extra params for pardot method if needed.

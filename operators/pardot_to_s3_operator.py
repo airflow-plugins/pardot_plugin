@@ -57,6 +57,21 @@ class PardotToS3Operator(BaseOperator, SkipMixin):
                                         before UTC). By default, this value
                                         is set to Eastern US time.
         :type pardot_time_offset:       integer
+        :param replication_type:        *(optional)*  Theh type of incremental
+                                        queries being issued to Pardot API.
+                                        Possible values for this parameter
+                                        include:
+                                            - time
+                                            - key
+        :type replication_type:
+        :param replication_field:       *(optional)*  The field for the
+                                        replication key, only required if
+                                        replication_type is set to "time".
+                                        This parameter can be one of the
+                                        following values:
+                                            - updated_at
+                                            - created_at
+        :type replication_field:
         :param s3_conn_id:              name of the Airflow connection that has
                                         your Amazon S3 conection params
         :type s3_conn_id:               string
@@ -103,7 +118,7 @@ class PardotToS3Operator(BaseOperator, SkipMixin):
         logging.info("Prepping to gather data from Pardot")
 
         hook = PardotHook(
-            conn_id=self.pardot_conn_id
+            conn__kid=self.pardot_conn_id
         )
 
         # attempt to login to Pardot
