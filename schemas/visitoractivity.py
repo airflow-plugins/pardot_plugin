@@ -1,0 +1,47 @@
+"""
+Visitor Activity
+
+http://developer.pardot.com/kb/api-version-4/visitor-activities/
+http://developer.pardot.com/kb/object-field-references/#visitor-activity
+"""
+
+visitoractivity = [{'name': 'id',
+                    'type': 'bigint'},
+                   {'name': 'prospect_id',
+                    'type': 'integer'},
+                   {'name': 'visitor_id',
+                    'type': 'integer'},
+                   {'name': 'visit_id',
+                    'type': 'integer'},
+                   {'name': 'type',
+                    'type': 'integer'},
+                   {'name': 'type_name',
+                    'type': 'varchar(512)'},
+                   {'name': 'details',
+                    'type': 'varchar(max)'},
+                   {'name': 'email_id',
+                    'type': 'integer'},
+                   {'name': 'email_template_id',
+                    'type': 'integer'},
+                   {'name': 'list_email_id',
+                    'type': 'integer'},
+                   {'name': 'form_id',
+                    'type': 'integer'},
+                   {'name': 'form_handler_id',
+                    'type': 'integer'},
+                   {'name': 'site_search_query_id',
+                    'type': 'integer'},
+                   {'name': 'landing_page_id',
+                    'type': 'integer'},
+                   {'name': 'paid_search_id_id',
+                    'type': 'integer'},
+                   {'name': 'multivariate_test_variation_id',
+                    'type': 'integer'},
+                   {'name': 'visitor_page_view_id',
+                    'type': 'integer'},
+                   {'name': 'file_id',
+                    'type': 'integer'},
+                   {'name': 'campaign',
+                    'type': 'varchar(max)'},
+                   {'name': 'created_at',
+                    'type': 'timestamp'}]
